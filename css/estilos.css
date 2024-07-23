@@ -1,0 +1,68 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+	font-family: "Inter", sans-serif;
+}
+#menu, #formulario, #pie{color:white;}
+body{
+	width: 100%;
+	min-height: auto;
+	background-image: url('../assets/estadio.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#bienvenida img{
+	margin-top:30vh;
+	display: hidden;
+}
+
+/*Cambiar a 2 segundos*/
+.animate__animated.animate__fadeIn { --animate-duration: 0.22s; }
+.oculto{
+	visibility: hidden;
+	overflow: hidden 
+}
+.cajaRoja{
+	background-color: #EC111A;
+	padding: 0 2rem;
+	border-radius: 10px;
+
+}
+#personajes .card-body{
+	background-color: #E9E9E9;
+}
+.nombrePersonaje{font-weight: bold; text-align: center; font-size: 1.1rem; margin: 1rem 0;}
+.rango{font-weight: bold; text-align: center; font-size: 1.2rem; margin: 1rem 0;}
+.medalla{text-align: center; font-size: 0.95em;}
+.slick-slide{ margin-bottom: 0rem;}
+.carrera{
+	background-color: #EC111A; color: white; font-weight: bold; font-size: 1rem; padding: 5px 30px;
+	border-radius: 20px;
+	transform: translateY(-1.4rem);
+}
+.slick-dots li button:before{
+	color: white!important;
+	opacity: 1!important;
+}
+.slick-dots li.slick-active button:before{
+	color: #EC111A!important;
+}
+.slick-dots li button:before{
+	width: 40px!important;
+	height: 40px!important;
+	font-size: 17px!important;
+}
+.btn-rojo{
+	background-color: #EC111A;
+	padding: 10px 100px;
+	color:white;
+	font-size: 1.3rem;
+	font-weight: bold;
+	border-radius: 60px;
+}
+.espaciado{margin:4rem;}
+#pie{
+	background-color: black;
+}
