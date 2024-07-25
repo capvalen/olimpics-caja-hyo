@@ -4,7 +4,7 @@
 *{
 	font-family: "Inter", sans-serif;
 }
-#menu, #formulario, #pie{color:white;}
+#menu, #formulario, #pie, #encuesta{color:white;}
 body{
 	width: 100%;
 	min-height: auto;
@@ -58,11 +58,113 @@ body{
 	background-color: #EC111A;
 	padding: 10px 100px;
 	color:white;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	border-radius: 60px;
+}
+.btn-blanco{
+	background-color: white;
+	padding: 10px 100px;
+	color:#6F7072;
+	font-size: 1.2rem;
+	font-weight: bold;
+	border-radius: 60px;
+}
+.btn:first-child:active, .btn-rojo:hover{
+	background-color: #c10910;
+	border-color: #a7070c;
+}
+.btn:first-child:active, .btn-blanco:hover{
+	background-color: #c10910;
+	border-color: #a7070c;
 }
 .espaciado{margin:4rem;}
 #pie{
 	background-color: black;
+}
+.question{
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+}
+.question .rojo{
+	background-color: #EC111A;
+	padding: 2px 6px;
+	border-radius: 6px;
+}
+#encuesta label{
+	font-weight: bold;
+	margin-top:1rem;
+}
+#encuesta .form-control{
+	background-color: #ffffff30;
+	border: 2px solid #ffffff50;
+	border-radius: 6px;
+	color: white;
+	text-transform: uppercase;
+	text-align: center;
+}
+#timeline{
+	display: flex;
+	justify-content: space-between;
+	margin-top: -1.5rem;
+}
+#linea{
+	width: 100%;
+	height: 2px;
+	background-color: white;
+	z-index: -2;
+	margin-top: 2.5rem;
+}
+#timeline .item{
+	display: flex;
+	font-size: 0.8rem;
+	width: 50px;
+	height: 50px;
+	background-color: white;
+	border: 3px solid white;
+	color:#6F7072;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	scale:1;
+	cursor:default;
+}
+#timeline .activo{
+	background-color: #EC111A;
+	border: 3px solid white;
+	color:white;
+	cursor: pointer;
+}
+#numPregunta{color:rgba(255, 255, 255, 0.5)}
+.alternativa{
+	background-color: white;
+	color: #000;
+	font-size: 1.5rem;
+	margin-bottom:20px;
+	padding: 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	-webkit-user-select: none;  /* Para navegadores WebKit (Safari, Chrome) */
+  -moz-user-select: none;     /* Para Firefox */
+  -ms-user-select: none;      /* Para Internet Explorer/Edge */
+  user-select: none;          /* Estándar */
+}
+.alternativa:hover, .alternativa.activo{
+	background-color: #EC111A;
+	color:white;
+}
+.bola{
+	text-align: center;
+	background-color: #EC111A;
+	color: white;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+}
+.alternativa:hover .bola, .alternativa.activo .bola{
+	background-color: white;
+	color:#EC111A;
 }

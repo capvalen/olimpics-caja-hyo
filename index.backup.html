@@ -14,11 +14,11 @@
 	<body>
 		<div id="app">
 			<section id="menu" class="d-flex justify-content-between my-2 mx-5  px-4 oculto ">
-				<img src="assets/logo.png" alt="" width="200px">
+				<img src="/assets/logo.png" alt="" width="200px">
 				<p class="fw-bold fs-5">Kimberly García</p>
 			</section>
 			<section id="bienvenida" class="d-flex align-items-center justify-content-center w-100 mt-n5">
-				<img src="assets/logo.png" id="imgBienvenida" alt="Logo Caja Huancayo" class="animate__animated animate__fadeIn">
+				<img src="/assets/logo.png" id="imgBienvenida" alt="Logo Caja Huancayo" class="animate__animated animate__fadeIn">
 			</section>
 
 			<section class="container animate__animated oculto" id="formulario">
@@ -106,31 +106,29 @@
 				</div>
 			</section>
 
-			<section class="container animate__animated oculto w-50 mb-5" id="encuesta" >
-				<div v-if="numPregunta==-1" id="pregunta0">
-					<div class="w-75 mx-auto">
-						<div class="question p-2 text-center fw-bold mb-3">
-							<p class="fs-4 mb-0 titulo">Primer desafío por los <span class="rojo">3 km</span></p>
-							<p class="fs-5 mb-0 instrucciones">Regístrate para empezar</p>
-						</div>
-						<div id="fInputs">
-							<label for="">Nombre y apellidos:</label>
-							<input type="text" class="form-control" v-model="postulante.nombre" autocomplete="off">
-							<label for="">Correo:</label>
-							<input type="text" class="form-control" v-model="postulante.correo" autocomplete="off">
-							<label for="">Celular:</label>
-							<input type="text" class="form-control" v-model="postulante.celular" autocomplete="off">
-							<label for="">Ciudad de residencia:</label>
-							<input type="text" class="form-control mb-3" v-model="postulante.ciudad" autocomplete="off">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="chkAcepto" v-model="postulante.acepto">
-								<label class="form-check-label" style="margin-top:0px" for="chkAcepto">Acepto términos y condiciones y política de protección de datos personales.</label>
-							</div>
+			<section class="container animate__animated oculto w-50 mb-5" id="encuesta">
+				<div class="w-75 mx-auto " id="pregunta0">
+					<div class="question p-2 text-center fw-bold mb-3">
+						<p class="fs-4 mb-0 titulo">Primer desafío por los <span class="rojo">3 km</span></p>
+						<p class="fs-5 mb-0 instrucciones">Regístrate para empezar</p>
+					</div>
+					<div id="fInputs">
+						<label for="">Nombre y apellidos:</label>
+						<input type="text" class="form-control" v-model="postulante.nombre" autocomplete="off">
+						<label for="">Correo:</label>
+						<input type="text" class="form-control" v-model="postulante.correo" autocomplete="off">
+						<label for="">Celular:</label>
+						<input type="text" class="form-control" v-model="postulante.celular" autocomplete="off">
+						<label for="">Ciudad de residencia:</label>
+						<input type="text" class="form-control mb-3" v-model="postulante.ciudad" autocomplete="off">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="chkAcepto" v-model="postulante.acepto">
+							<label class="form-check-label" style="margin-top:0px" for="chkAcepto">Acepto términos y condiciones y política de protección de datos personales.</label>
 						</div>
 					</div>
 				</div>
 
-				<div class="w-75 mx-auto d-none" id="pregunta1"  >
+				<div class="w-75 mx-auto d-none" id="pregunta1" >
 					<div v-if="numPregunta>-1">
 						<div class="question p-2 text-center fw-bold mb-3">
 							<p class="fs-4 mb-0 titulo">{{banco[numPregunta].question}} <span class="rojo">{{banco[numPregunta].caja}}.</span></p>
@@ -141,7 +139,7 @@
 							<p class="fs-4 fw-bold">{{banco[numPregunta].pregunta}}</p>
 							<div class="alternativas">
 								<div v-for="alternativa in banco[numPregunta].alternativas">
-									<div :class="['alternativa d-flex', evaluarOpcion(alternativa.opcion) ]" @click="addRespuesta(alternativa.opcion)"><div class="rounded-circle bola me-3"><span>{{alternativa.opcion}}</span></div> {{alternativa.contenido}}</div>
+									<div class="alternativa d-flex"><div class="rounded-circle bola me-3"><span>{{alternativa.opcion}}</span></div> {{alternativa.contenido}}</div>
 								</div>
 							</div>
 						</div>
@@ -164,9 +162,8 @@
 					</div>
 					<div class="espaciado"></div>
 					<div class="d-grid my-4 w-50 mx-auto gap-4">
-						<button v-if="numPregunta<=10" class="btn btn-rojo" @click="enviarHoja">Enviar</button>
-						<button v-else class="btn btn-rojo" @click="enviarCalificaciones">Finalizar Prueba</button>
-						<button class="btn btn-blanco" @click="atras">Atrás</button>
+						<button class="btn btn-rojo" @click="enviarHoja">Enviar</button>
+						<button class="btn btn-blanco">Atrás</button>
 					</div>
 				</div>
 			</section>
@@ -179,9 +176,9 @@
 						<div class="mx-5 fw-bold"><p>GESTIONAR PREFERENCIAS</p></div>
 					</div>
 					<div class="col col-md-4 d-flex flex-row-reverse">
-						<div class="icono mx-2"> <img src="assets/tiktok.png" width="30"> </div>
-						<div class="icono mx-2"> <img src="assets/instagram.png" width="30"> </div>
-						<div class="icono mx-2"> <img src="assets/facebook.png" width="30"> </div>
+						<div class="icono mx-2"> <img src="/assets/tiktok.png" width="30"> </div>
+						<div class="icono mx-2"> <img src="/assets/instagram.png" width="30"> </div>
+						<div class="icono mx-2"> <img src="/assets/facebook.png" width="30"> </div>
 					</div>
 				</div>
 			</div>
@@ -197,9 +194,9 @@
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script>
-			const { createApp, ref, onMounted, computed } = Vue
+			const { createApp, ref, onMounted } = Vue
 		
-			const app = createApp({
+			createApp({
 				setup() {
 					const postulante = ref({
 						nombre:'Q', correo:'Q', celular:'Q', ciudad:'Q', acepto:true
@@ -207,6 +204,34 @@
 					const paso = ref(0)
 					const numPregunta = ref(-1)
 					const saltar = ref('uno')
+					const finCero = () =>{
+						return new Promise ((resolve, reject) =>{
+							const pregunta = document.getElementById("pregunta0");
+							pregunta.addEventListener('animationend', (event)=>{
+								if(event.animationName == 'fadeOut'){
+									pregunta.classList.add('oculto', 'd-none')
+									resolve('oculto')
+								}
+								if(event.animationName == 'fadeIn'){
+									resolve('displayado')
+								}
+							})
+						})
+					}
+					const finUno = () =>{
+						return new Promise ((resolve, reject) =>{
+							const pregunta = document.getElementById("pregunta1");
+							pregunta.addEventListener('animationend', (event)=>{
+								if(event.animationName == 'fadeOut'){
+									pregunta.classList.add('oculto', 'd-none')
+									resolve('oculto')
+								}
+								if(event.animationName == 'fadeIn'){
+									resolve('displayado')
+								}
+							})
+						})
+					}
 
 					const banco = ref([
 						{id:1, question: 'Segundo desafío por los', caja: '5 km', proximo:5, instruction: 'Responde la siguiente pregunta',
@@ -265,10 +290,9 @@
 						{id:10, question: 'Desafío final para los', caja: '35 km', proximo:30, instruction: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:',
 						pregunta: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:', alternativas:[
 							{opcion:'A', contenido:'Verdadero'},
-							{opcion:'B', contenido:'Falso'},
+							{opcion:'B', contenido:'Falso)'},
 						]},
 					])
-					const bancoRespuestas = ref([])
 
 					function ocultarLogo(){
 						setTimeout(()=>{
@@ -291,6 +315,14 @@
 						numPregunta.value = -1
 						paso.value=0
 						saltar.value = 'cero'
+						const pregunta1 = document.getElementById('pregunta1')
+						pregunta1.classList.add('animate__animated', 'animate__fadeOut' )
+						finUno().then(queHay=>{
+							//console.log(queHay)
+							const pregunta0 = document.getElementById('pregunta0')
+							pregunta0.classList.remove('animate__fadeIn','animate__fadeOut','oculto', 'd-none')
+							pregunta0.classList.add('animate__animated', 'animate__fadeIn' )
+						})
 					}
 
 					onMounted(()=>{
@@ -300,8 +332,18 @@
 							dots: true,
 						});
 						ocultarLogo()
-						for(let i =0; i<10; i++)
-							bancoRespuestas.value[i]=''
+						var pregunta1 = document.getElementById("pregunta1");
+						pregunta1.addEventListener('animationend', (event)=>{
+							//console.log(event)
+							if(saltar.value !='cero'){
+								const proxima = document.getElementById('pregunta1')
+								proxima.classList.remove('animate__fadeIn', 'animate__fadeOut', 'oculto', 'd-none')
+								proxima.classList.add('animate__animated','animate__fadeIn')
+								if(event.animationName == 'fadeIn' ){
+									cambiarSoloPregunta1()
+								}
+							}
+						})
 					})
 
 					function comenzar(){
@@ -326,86 +368,47 @@
 									saltar.value='uno'
 									numPregunta.value=-1
 									paso.value=0
-									cambiarSoloPregunta1()
+									const pregunta0 = document.getElementById('pregunta0')
+									pregunta0.classList.add('animate__animated', 'animate__fadeOut' )
+									console.log('entra')
+									finCero().then(queHay=>{
+										console.log('resuelve')
+										const pregunta = document.getElementById('pregunta1')
+										pregunta.classList.remove('animate__fadeIn', 'animate__fadeOut', 'oculto', 'd-none')
+										pregunta.classList.add('animate__animated', 'animate__fadeIn' )
+									})
 								}
 							break;
 							case (numPregunta.value>-1):
-								if(bancoRespuestas.value[numPregunta.value]!=''){
-									saltar.value='uno'
-									cambiarSoloPregunta1()
-								}else{
-									Swal.fire({
-										icon: 'warning', text: "Debe seleccionar una opción" })
-								}
+								saltar.value='uno'
+								cambiarPregunta()
 							break;
 						}
-						scrollToTop()
-					}
-
-					function irCero(){
-						saltar.value = 'cero'
-						numPregunta.value = -1
-						paso.value = 0
-						const pregunta0 = document.getElementById('pregunta0')
-						const pregunta1 = document.getElementById('pregunta1')
-						pregunta0.classList.remove('d-none', 'oculto')
-						pregunta1.classList.add('d-none', 'oculto')
 					}
 					
 					function irAPregunta(numero){
 						if(numPregunta.value>=numero){
 							saltar.value = numero
-							cambiarSoloPregunta1()
+							cambiarPregunta()
 						}
 					}
 
-					function atras(){
-						if(numPregunta.value >0) numPregunta.value--
-						else irCero()
+					function cambiarPregunta(){
+						const pregunta = document.getElementById('pregunta1')
+						pregunta.classList.remove('animate__fadeIn', 'animate__fadeOut', 'oculto', 'd-none')
+						pregunta.classList.add('animate__animated', 'animate__fadeOut' )
 					}
 
 					function cambiarSoloPregunta1(){
-						const preguntas = document.getElementById('pregunta1')
-						preguntas.classList.remove('d-none', 'oculto')
-						if( saltar.value == 'cero') return null
+						console.log('quecambia', saltar.value)
+						if( saltar.value == 'cero') return false
 						else if( saltar.value == 'uno') numPregunta.value ++
 						else numPregunta.value = saltar.value
 						paso.value = banco.value[numPregunta.value].proximo
+						
 					}
-
-					function addRespuesta(rpta){
-						console.log(rpta, numPregunta.value)
-						bancoRespuestas.value[numPregunta.value]=rpta
-					}
-
-					function evaluarOpcion(opcion){
-						let seleccion = false
-						if(bancoRespuestas.value[numPregunta.value] == opcion)
-								seleccion=true
-						return seleccion ? 'activo':''
-					}
-
-					function scrollToTop () {
-						window.scrollTo({
-							top: 0,
-							behavior: 'smooth'
-						});
-					}
-
-					function enviarCalificaciones(){
-						const datos = new FormData()
-						datos.append('cliente', JSON.stringify(postulante.value))
-						datos.append('respuestas', JSON.stringify(bancoRespuestas.value))
-						fetch('api/resolver.php',{
-							method:'POST', body:datos
-						})
-						.then(serv => serv.json() )
-						.then(resp => console.log(resp))
-
-					}
-
 					return {
-						comenzar, postulante, paso, enviarHoja, banco, numPregunta, saltar, irAPregunta, irCero, atras, addRespuesta, evaluarOpcion, bancoRespuestas, enviarCalificaciones
+						comenzar, postulante, paso, enviarHoja, banco, numPregunta, irAPregunta, saltar, irCero
 					}
 				}
 			}).mount('#app')
