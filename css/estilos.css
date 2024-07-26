@@ -11,7 +11,7 @@ body{
 	background-image: url('../assets/estadio.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 0 center;
 }
 #bienvenida img{
 	margin-top:30vh;
@@ -76,12 +76,12 @@ body{
 	border-radius: 60px;
 }
 .btn:first-child:active, .btn-rojo:hover{
-	background-color: #c10910;
-	border-color: #a7070c;
+	background-color: #c10910!important;
+	border-color: #a7070c!important;
 }
 .btn:first-child:active, .btn-blanco:hover{
-	background-color: #c10910;
-	border-color: #a7070c;
+	background-color: #c10910!important;
+	border-color: #a7070c!important;
 }
 .espaciado{margin:4rem;}
 #pie{
