@@ -4,7 +4,7 @@
 *{
 	font-family: "Inter", sans-serif;
 }
-#menu, #formulario, #pie, #encuesta{color:white;}
+#menu, #formulario, #pie, #encuesta, #final{color:white;}
 body{
 	width: 100%;
 	min-height: auto;
@@ -19,10 +19,10 @@ body{
 }
 
 /*Cambiar a 2 segundos*/
-.animate__animated.animate__fadeIn { --animate-duration: 0.22s; }
+.animate__animated.animate__fadeIn { --animate-duration: 1s; } /*cambiar a 1 segundo*/
 .oculto{
 	visibility: hidden;
-	overflow: hidden 
+	overflow: hidden;
 }
 .cajaRoja{
 	background-color: #EC111A;
@@ -32,6 +32,11 @@ body{
 }
 #personajes .card-body{
 	background-color: #E9E9E9;
+}
+#cardTransparente{
+	background-color: rgba(0, 0, 0, 0.5);
+	border:1px solid #fff;
+	color:white;
 }
 .nombrePersonaje{font-weight: bold; text-align: center; font-size: 1.1rem; margin: 1rem 0;}
 .rango{font-weight: bold; text-align: center; font-size: 1.2rem; margin: 1rem 0;}
@@ -167,4 +172,75 @@ body{
 .alternativa:hover .bola, .alternativa.activo .bola{
 	background-color: white;
 	color:#EC111A;
+}
+
+#overload{
+	position: fixed;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #000000db;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (max-width: 576px) {
+	.w-50, .w-75{
+		width: 95%!important;
+	}
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+:root {
+	--color-primary: #EC111A;
+	--color-background: #fff;
+}
+
+#overload ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#overload li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 5px solid var(--color-background);
+  border-radius: 100%;
+}
+
+#overload li:nth-child(1) {
+  margin: -30px 0 0 -30px;
+  border-top-color: var(--color-primary);
+  width: 60px;
+  height: 60px;
+  animation: loading 3s infinite linear;
+}
+
+#overload li:nth-child(2) {
+  margin: -20px 0 0 -20px;
+  border-top-color: var(--color-primary);
+  width: 40px;
+  height: 40px;
+  animation: loading 2s infinite linear;
+}
+
+#overload li:nth-child(3) {
+  margin: -10px 0 0 -10px;
+  border-top-color: var(--color-primary);
+  width: 20px;
+  height: 20px;
+  animation: loading 1s infinite linear;
 }

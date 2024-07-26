@@ -6,23 +6,27 @@
 		<title>Campeones del día a día - Caja Huancayo</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-		<link rel="stylesheet" href="css/estilos.css">
+		<link rel="stylesheet" href="css/estilos.css?v=1.3">
 		<link rel="shortcut icon" href="assets/favicon.png" type="image/png">
 		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
 	</head>
 	<body>
-		<div id="app">
-			<section id="menu" class="d-flex justify-content-between my-2 mx-5  px-4 oculto ">
-				<img src="assets/logo.png" alt="" width="200px">
-				<p class="fw-bold fs-5">Kimberly García</p>
+		<div class="w-100" id="app">
+			<section id="menu" class="d-flex flex-column flex-md-row justify-content-md-between my-3 mx-0 mx-lg-5  px-lg-4 oculto  ">
+				<div class="d-flex justify-content-center">
+					<img src="assets/logo.png" class="img-fluid my-2" >
+				</div>
+				<div>
+					<p class="fw-bold fs-5 text-center">Kimberly García</p>
+				</div>
 			</section>
 			<section id="bienvenida" class="d-flex align-items-center justify-content-center w-100 mt-n5">
 				<img src="assets/logo.png" id="imgBienvenida" alt="Logo Caja Huancayo" class="animate__animated animate__fadeIn">
 			</section>
 
 			<section class="container animate__animated oculto" id="formulario">
-				<div class="w-50 mx-auto">
+				<div class="w-75 mx-auto">
 					<p class="text-center mb-0 fs-3">Bienvenido a</p>
 					<p class="text-center fs-2 mb-0 fw-bold">“Campeones día a día”</p>
 					<div class="d-flex justify-content-center"><span class="text-center cajaRoja fs-1 fw-bold ">Alcanza la meta</span></div>
@@ -34,7 +38,7 @@
 								<div class="card m-1 ">
 									<div class="card-body">
 										<p class=" nombrePersonaje">Antonio Mamani</p>
-										<img src="assets/personaje1.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona1.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -45,7 +49,7 @@
 								<div class="card m-1 ">
 									<div class="card-body">
 										<p class=" nombrePersonaje">Patricia Meza</p>
-										<img src="assets/personaje2.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona2.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -56,7 +60,7 @@
 								<div class="card m-1 ">
 									<div class="card-body ">
 										<p class=" nombrePersonaje">Ana Maldonado</p>
-										<img src="assets/personaje3.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona3.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -67,7 +71,7 @@
 								<div class="card m-1 ">
 									<div class="card-body ">
 										<p class=" nombrePersonaje">Ana Maldonado</p>
-										<img src="assets/personaje3.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona4.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -78,7 +82,7 @@
 								<div class="card m-1 ">
 									<div class="card-body ">
 										<p class=" nombrePersonaje">Ana Maldonado</p>
-										<img src="assets/personaje3.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona5.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -89,7 +93,7 @@
 								<div class="card m-1 ">
 									<div class="card-body ">
 										<p class=" nombrePersonaje">Ana Maldonado</p>
-										<img src="assets/personaje3.png" class="img-fluid" alt="Persona 1">
+										<img src="assets/persona6.jpg" class="img-fluid" alt="Persona 1">
 										<p class="mb-0 rango fw-bold">Primer Lugar</p>
 										<p class="medalla">Medalla de oro</p>
 									</div>
@@ -106,7 +110,7 @@
 				</div>
 			</section>
 
-			<section class="container animate__animated oculto w-50 mb-5" id="encuesta" >
+			<section class="container animate__animated oculto w-50 mb-5" id="encuesta" v-if="!finalizado" >
 				<div v-if="numPregunta==-1" id="pregunta0">
 					<div class="w-75 mx-auto">
 						<div class="question p-2 text-center fw-bold mb-3">
@@ -164,26 +168,50 @@
 					</div>
 					<div class="espaciado"></div>
 					<div class="d-grid my-4 w-50 mx-auto gap-4">
-						<button v-if="numPregunta<=10" class="btn btn-rojo" @click="enviarHoja">Enviar</button>
-						<button v-else class="btn btn-rojo" @click="enviarCalificaciones">Finalizar Prueba</button>
+						<button v-if="numPregunta<9" class="btn btn-rojo" @click="enviarHoja">Enviar</button>
+						<button v-else class="btn btn-rojo" @click="enviarCalificaciones">Finalizar </button>
 						<button class="btn btn-blanco" @click="atras">Atrás</button>
 					</div>
 				</div>
 			</section>
 
+			<section class="container w-50 mb-5" v-if="finalizado" id="final">
+				<div class="card w-75 mx-auto p-3" id="cardTransparente">
+					<div class="card-body text-center">
+						<img src="assets/solar.png" style="width:50%">
+						<p class="fs-3 fw-bold mb-0">¡Excelente trabajo!</p>
+						<p class="fs-5 fw-bold">Has completado todos los desafíos.</p>
+						<p class="mb-1"><small>Tu meta alcanzada es de: </small></p>
+						<div ><span class="fs-2 cajaRoja fw-bold">{{servidor.puntaje}} km.</span></div>
+					</div>
+				</div>
+
+				<div class="w-75 mx-auto">
+					<p class=" text-center"><small>Ahora participas en el sorteo de un iPhone 15 Pro Max y una Laptop HP. Haz clic en el botón de continuar para confirmar tu participación.</small></p>
+					<p class="fs-5	 text-center">Tu código de participación es: <span class="fw-bold">#{{servidor.idCliente}}</span></p>
+				</div>
+			</section>
+
 			<div class="w-100 px-5 py-4" id="pie">
-				<div class="row">
-					<div class="col col-md-8 d-flex">
+				<div class="row d-flex flex-md-row flex-column-reverse">
+					<div class="col col-md-8 d-flex flex-column flex-md-row ">
 						<div class="mx-5 fw-bold"><p>POLITICA DE PRIVACIDAD</p></div>
 						<div class="mx-5 fw-bold"><p>CONDICIONES DE USO</p></div>
 						<div class="mx-5 fw-bold"><p>GESTIONAR PREFERENCIAS</p></div>
 					</div>
-					<div class="col col-md-4 d-flex flex-row-reverse">
-						<div class="icono mx-2"> <img src="assets/tiktok.png" width="30"> </div>
-						<div class="icono mx-2"> <img src="assets/instagram.png" width="30"> </div>
-						<div class="icono mx-2"> <img src="assets/facebook.png" width="30"> </div>
+					<div class="col col-md-4 d-flex flex-row-reverse justify-content-center mb-2">
+						<div class="icono m-2"> <a href="https://www.tiktok.com/@cajahuancayo" target="_blank"><img src="assets/tiktok.png" width="30"></a> </div>
+						<div class="icono m-2"> <a href="https://www.instagram.com/caja_huancayo/" target="_blank"><img src="assets/instagram.png" width="30"></a> </div>
+						<div class="icono m-2"> <a href="https://www.facebook.com/CajaHuancayo" target="_blank"><img src="assets/facebook.png" width="30"></a> </div>
 					</div>
 				</div>
+			</div>
+			<div class="d-none" id="overload">
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
 			</div>
 		</div>
 		
@@ -202,11 +230,13 @@
 			const app = createApp({
 				setup() {
 					const postulante = ref({
-						nombre:'Q', correo:'Q', celular:'Q', ciudad:'Q', acepto:true
+						nombre:'', correo:'', celular:'', ciudad:'', acepto:false
 					})
 					const paso = ref(0)
 					const numPregunta = ref(-1)
 					const saltar = ref('uno')
+					const finalizado = ref(false)
+					const servidor = ref(null)
 
 					const banco = ref([
 						{id:1, question: 'Segundo desafío por los', caja: '5 km', proximo:5, instruction: 'Responde la siguiente pregunta',
@@ -224,7 +254,7 @@
 						pregunta: '¿Dónde se ubican las agencias de Caja Huancayo?', alternativas:[
 							{opcion:'A', contenido:'Solo en la sierra'},
 							{opcion:'B', contenido:'Están presente en todo el Perú'},
-							{opcion:'B', contenido:'Solo está en Junín'},
+							{opcion:'C', contenido:'Solo está en Junín'},
 						]},
 						{id:4, question: 'Estás por llegar a los', caja: '15 km', proximo:13, instruction: 'Responde una pregunta más',
 						pregunta: '¿Es cierto que con Caja Huancayo se puede realizar operaciones con Plin y Yape?', alternativas:[
@@ -284,7 +314,9 @@
 								formulario.classList.remove('oculto')
 								formulario.classList.add('animate__animated','animate__fadeIn')
 							});
-						}, 200) //cambiar a 2000 segundos
+						}, 2000) //cambiar a 2000 segundos
+
+						fetch('api/punto.php')
 					}
 
 					function irCero(){
@@ -294,11 +326,21 @@
 					}
 
 					onMounted(()=>{
-						$('.carrusel	').slick({
-							slidesToShow: 3,
-							slidesToScroll: 3,
-							dots: true,
-						});
+
+						if ($(window).width() >= 576){
+							$('.carrusel	').slick({
+								slidesToShow: 3,
+								slidesToScroll: 3,
+								dots: true
+							});
+						}else{
+							$('.carrusel	').slick({
+								slidesToShow: 1,
+								slidesToScroll: 1,
+								dots: true
+							});
+						}
+
 						ocultarLogo()
 						for(let i =0; i<10; i++)
 							bancoRespuestas.value[i]=''
@@ -374,7 +416,6 @@
 					}
 
 					function addRespuesta(rpta){
-						console.log(rpta, numPregunta.value)
 						bancoRespuestas.value[numPregunta.value]=rpta
 					}
 
@@ -393,6 +434,8 @@
 					}
 
 					function enviarCalificaciones(){
+						const overload = document.getElementById('overload')
+						overload.classList.remove('d-none')
 						const datos = new FormData()
 						datos.append('cliente', JSON.stringify(postulante.value))
 						datos.append('respuestas', JSON.stringify(bancoRespuestas.value))
@@ -400,12 +443,18 @@
 							method:'POST', body:datos
 						})
 						.then(serv => serv.json() )
-						.then(resp => console.log(resp))
+						.then(resp =>{
+							servidor.value = resp;
+							overload.classList.add('d-none')
+							finalizado.value = true
+
+							//console.log(resp)
+						})
 
 					}
 
 					return {
-						comenzar, postulante, paso, enviarHoja, banco, numPregunta, saltar, irAPregunta, irCero, atras, addRespuesta, evaluarOpcion, bancoRespuestas, enviarCalificaciones
+						comenzar, postulante, paso, enviarHoja, banco, numPregunta, saltar, irAPregunta, irCero, atras, addRespuesta, evaluarOpcion, bancoRespuestas, enviarCalificaciones, finalizado, servidor
 					}
 				}
 			}).mount('#app')
