@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
 	</head>
-	<body>
+<body>
 		<div class="w-100" id="app">
 			<section id="menu" class="d-flex flex-column flex-md-row justify-content-md-between my-3 mx-0 mx-lg-5  px-lg-4 oculto  ">
 				<div class="d-flex justify-content-center">
@@ -27,8 +27,11 @@
 
 			<section class="container animate__animated oculto" id="formulario">
 				<div class="w-75 mx-auto">
-					<p class="text-center mb-0 fs-3">Bienvenido a</p>
-					<p class="text-center fs-2 mb-0 fw-bold">“Campeones día a día”</p>
+					<p class="text-center d-none mb-0 fs-3">Bienvenido a</p>
+					<p class="text-center d-none fs-2 mb-0 fw-bold">“Campeones día a día”</p>
+					<div class="w-75 mx-auto">
+						<img src="assets/campeones.png" class="img-fluid ">
+					</div>
 					<div class="d-flex justify-content-center"><span class="text-center cajaRoja fs-1 fw-bold ">Alcanza la meta</span></div>
 				</div>
 				<div class="w-75 mx-auto my-3">
@@ -175,21 +178,74 @@
 				</div>
 			</section>
 
-			<section class="container w-50 mb-5" v-if="finalizado" id="final">
-				<div class="card w-75 mx-auto p-3" id="cardTransparente">
+			<section class="container w-50 mb-5" v-if="finalizado && !verFoto" id="final">
+				<div class="card w-75 mx-auto p-3 cardTransparente" id="">
 					<div class="card-body text-center">
 						<img src="assets/solar.png" style="width:50%">
 						<p class="fs-3 fw-bold mb-0">¡Excelente trabajo!</p>
 						<p class="fs-5 fw-bold">Has completado todos los desafíos.</p>
 						<p class="mb-1"><small>Tu meta alcanzada es de: </small></p>
 						<div ><span class="fs-2 cajaRoja fw-bold">{{servidor.puntaje}} km.</span></div>
+						<div class="espaciado" style="margin: 1rem;" ></div>
+						<p class="fw-bold text-center"><small>Ahora participas en el sorteo de un iPhone 15 Pro Max y una Laptop HP. Haz clic en el botón de continuar para confirmar tu participación.</small></p>
+						<p class="fs-5	 text-center">Tu código de participación es: <span class="fw-bold">#{{servidor.idCliente}}</span></p>
+					</div>
+					<div class="d-grid">
+						<button class="btn btn-rojo" @click="mostrarZonaFoto">Genera tu fotografía</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="container w-50 mb-5 d-flex flex-column d-none" id="sectionFoto" v-show="verFoto" >
+				<img class="mx-auto" src="assets/solar.png" style="width:100px">
+				<div v-show="!verFinal">
+					<p class="fs-5 mb-0 text-center">Reclama tu medalla</p>
+					<p class="fs-3 fw-bold text-center">Saca o sube una foto tuya</p>
+					<div class="mx-auto d-flex justify-content-center my-3">
+						<div class="d-flex flex-column">
+							<button class="btn btn-cuadrado mx-1" @click="subirDesdeCamara">
+								<img src="assets/camara.png" alt="">
+							</button>
+							<span class="text-light fw-bold text-center">Tomar</span>
+						</div>
+						<div class="d-flex flex-column">
+							<button class="btn btn-cuadrado mx-1" @click="subirFoto">
+								<img src="assets/subir.png" alt="">
+							</button>
+							<span class="text-light fw-bold text-center">Subir</span>
+						</div>
+				</div>
+				</div>
+				<div class="card cardTransparente w-75 mx-auto mt-4">
+					<div class="card-body text-center">
+						<div v-show="!verFinal">
+							<p class="mb-0 fw-bold">Aquí tienes un consejo:</p>
+							<p class="mb-0">Para obtener mejores resultados, sostén tu teléfono más atrás para un mejor ángulo y asegúrate de estar en un lugar bien iluminado.</p>
+						</div>
+						<img id="preview" src="" alt="Previsualización de la Foto" style="max-width: 100%; height: auto; display: none;">
+						<input type="file" id="txtFoto" accept=".png, .jpg, .jpeg" @change="fotoDesdePC">
+						<input type="file" id="txtCamara" accept="image/*" capture="environment" @change="fotoDesdeCamara">
+						<div id="verFinal" v-show="verFinal">
+							<canvas class="w-100" id="canvas"></canvas>
+							<button class="btn btn-cuadrado" @click="descargarFoto" id="btnDescargar"><img src="assets/download.png" style="width:30px; height:30px;"> <br>Descargar foto</button>
+						</div>
+					</div>
+				</div>
+				<div class="w-75 mx-auto mt-4" v-show="verFinal">
+					<p class="text-center fw-bold fs-5">Comparte con amigos <span class="cajaRoja" style="padding: 3px 1rem;">#campeonesdeldiaadia</span></p>
+					<p class="fs-3 fw-bold text-center">
+						Te invitamos a compartir tu foto en tus redes sociales y seguirnos para mantenerte informado sobre los ganadores del sorteo “Campeones del día a día”.
+					</p>
+					<div class="col d-flex justify-content-center mb-2">
+						<div class="icono m-2"> <a href="https://www.facebook.com/CajaHuancayo" target="_blank"><img src="assets/facebook.png" width="50"></a> </div>
+						<div class="icono m-2"> <a href="https://www.instagram.com/caja_huancayo/" target="_blank"><img src="assets/instagram.png" width="50"></a> </div>
+						<div class="icono m-2"> <a href="https://www.tiktok.com/@cajahuancayo" target="_blank"><img src="assets/tiktok.png" width="50"></a> </div>
+					</div>
+					<div class="d-flex justify-content-center d-grid">
+						<button class="btn btn-light" onclick="location.reload()">Comenzar de nuevo</button>
 					</div>
 				</div>
 
-				<div class="w-75 mx-auto">
-					<p class=" text-center"><small>Ahora participas en el sorteo de un iPhone 15 Pro Max y una Laptop HP. Haz clic en el botón de continuar para confirmar tu participación.</small></p>
-					<p class="fs-5	 text-center">Tu código de participación es: <span class="fw-bold">#{{servidor.idCliente}}</span></p>
-				</div>
 			</section>
 
 			<div class="w-100 px-5 py-4" id="pie">
@@ -215,251 +271,386 @@
 			</div>
 		</div>
 		
-		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-		<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@4/bulma.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@4/bulma.css" rel="stylesheet">
 
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-		<script>
-			const { createApp, ref, onMounted, computed } = Vue
-		
-			const app = createApp({
-				setup() {
-					const postulante = ref({
-						nombre:'', correo:'', celular:'', ciudad:'', acepto:false
-					})
-					const paso = ref(0)
-					const numPregunta = ref(-1)
-					const saltar = ref('uno')
-					const finalizado = ref(false)
-					const servidor = ref(null)
+<script>
+	const { createApp, ref, onMounted, computed } = Vue
 
-					const banco = ref([
-						{id:1, question: 'Segundo desafío por los', caja: '5 km', proximo:5, instruction: 'Responde la siguiente pregunta',
-						pregunta: '¿Cómo se le denomina a Kimberly García?', alternativas:[
-							{opcion:'A', contenido:'Bicampeona de Oro'},
-							{opcion:'B', contenido:'Marchante fugaz'},
-						]},
-						{id:2, question: 'Estás cerca de conseguir los', caja: '10 km', proximo:8, instruction: 'Responde una pregunta más',
-						pregunta: '¿Cuántos años tiene Caja Huancayo apoyando los sueños de los emprendedores?', alternativas:[
-							{opcion:'A', contenido:'15 años'},
-							{opcion:'B', contenido:'35 años'},
-							{opcion:'C', contenido:'9 años'},
-						]},
-						{id:3, question: '¡Bien hecho! Sigamos por los', caja: '10 km', proximo:10, instruction: 'Responde la siguiente pregunta',
-						pregunta: '¿Dónde se ubican las agencias de Caja Huancayo?', alternativas:[
-							{opcion:'A', contenido:'Solo en la sierra'},
-							{opcion:'B', contenido:'Están presente en todo el Perú'},
-							{opcion:'C', contenido:'Solo está en Junín'},
-						]},
-						{id:4, question: 'Estás por llegar a los', caja: '15 km', proximo:13, instruction: 'Responde una pregunta más',
-						pregunta: '¿Es cierto que con Caja Huancayo se puede realizar operaciones con Plin y Yape?', alternativas:[
-							{opcion:'A', contenido:'Verdadero'},
-							{opcion:'B', contenido:'Falso'},
-						]},
-						{id:5, question: '¡Felicidades! Siguiente meta:', caja: '15 km', proximo:15, instruction: 'Responde la siguiente pregunta',
-						pregunta: '¿En qué ciudad participará Kimberly García por los Juegos Olímpicos?', alternativas:[
-							{opcion:'A', contenido:'Estambul'},
-							{opcion:'B', contenido:'Huancayo'},
-							{opcion:'C', contenido:'París'},
-						]},
-						{id:6, question: '¡Vamos! Casi llegamos a los', caja: '20 km', proximo:18, instruction: 'Responde una pregunta más',
-						pregunta: '¿A qué rama del atletismo se dedica Kimberly García?', alternativas:[
-							{opcion:'A', contenido:'Natación'},
-							{opcion:'B', contenido:'Lanzamiento de jabalina'},
-							{opcion:'C', contenido:'Marcha atlética'},
-						]},
-						{id:7, question: '¡En hora buena, casi los', caja: '20 km', proximo:20, instruction: 'Caja Huancayo apoya al deporte nacional auspiciando también al',
-						pregunta: '¿Cómo se conoce a Caja Huancayo?', alternativas:[
-							{opcion:'A', contenido:'La Caja del Perú'},
-							{opcion:'B', contenido:'El banco de todos los peruanos'},
-							{opcion:'C', contenido:'Todas son correctas'},
-						]},
-						{id:8, question: '¡Estás a punto de llegar a los', caja: '35 km', proximo:25, instruction: 'Responde la siguiente pregunta',
-						pregunta: '¿Cómo se conoce a Caja Huancayo?', alternativas:[
-							{opcion:'A', contenido:'La Caja del Perú'},
-							{opcion:'B', contenido:'El banco de todos los peruanos'},
-							{opcion:'C', contenido:'El banco del Ekeko'},
-						]},
-						{id:9, question: 'Últimos esfuerzos para los', caja: '35 km', proximo:30, instruction: 'Ahorrar en Caja Huancayo es totalmente seguro por la siguiente razón:',
-						pregunta: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:', alternativas:[
-							{opcion:'A', contenido:'Es totalemente confiable y ofrece alta rentabilidad'},
-							{opcion:'B', contenido:'Por que pertenece al FSD (Fondo de Seguros y Depósitos)'},
-							{opcion:'C', contenido:'Por que Está supervisado por la SBS'},
-							{opcion:'D', contenido:'Todas son correctas'},
-						]},
-						{id:10, question: 'Desafío final para los', caja: '35 km', proximo:30, instruction: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:',
-						pregunta: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:', alternativas:[
-							{opcion:'A', contenido:'Verdadero'},
-							{opcion:'B', contenido:'Falso'},
-						]},
-					])
-					const bancoRespuestas = ref([])
+	const app = createApp({
+		setup() {
+			const postulante = ref({
+				nombre:'', correo:'', celular:'', ciudad:'', acepto:false
+			})
+			const paso = ref(0)
+			const numPregunta = ref(-1)
+			const saltar = ref('uno')
+			const finalizado = ref(false)
+			const servidor = ref(null)
+			const verFoto = ref(false)
+			const queSube = ref(null)
+			const verFinal = ref(false)
 
-					function ocultarLogo(){
-						setTimeout(()=>{
-							var bienvenidaDiv = document.getElementById("imgBienvenida");
-							bienvenidaDiv.classList.remove("animate__fadeIn");
-							bienvenidaDiv.classList.add("animate__fadeOut");
-							bienvenidaDiv.addEventListener('animationend', () => {
-								bienvenidaDiv.parentElement.classList.add('oculto', 'd-none')
-								const menu = document.getElementById('menu')
-								const formulario = document.getElementById('formulario')
-								menu.classList.remove('oculto')
-								menu.classList.add('animate__animated','animate__fadeIn')
-								formulario.classList.remove('oculto')
-								formulario.classList.add('animate__animated','animate__fadeIn')
-							});
-						}, 2000) //cambiar a 2000 segundos
+			const banco = ref([
+				{id:1, question: 'Segundo desafío por los', caja: '5 km', proximo:5, instruction: 'Responde la siguiente pregunta',
+				pregunta: '¿Cómo se le denomina a Kimberly García?', alternativas:[
+					{opcion:'A', contenido:'Bicampeona de Oro'},
+					{opcion:'B', contenido:'Marchante fugaz'},
+				]},
+				{id:2, question: 'Estás cerca de conseguir los', caja: '10 km', proximo:8, instruction: 'Responde una pregunta más',
+				pregunta: '¿Cuántos años tiene Caja Huancayo apoyando los sueños de los emprendedores?', alternativas:[
+					{opcion:'A', contenido:'15 años'},
+					{opcion:'B', contenido:'36 años'},
+					{opcion:'C', contenido:'9 años'},
+				]},
+				{id:3, question: '¡Bien hecho! Sigamos por los', caja: '10 km', proximo:10, instruction: 'Responde la siguiente pregunta',
+				pregunta: '¿Dónde se ubican las agencias de Caja Huancayo?', alternativas:[
+					{opcion:'A', contenido:'Solo en la sierra'},
+					{opcion:'B', contenido:'Están presente en todo el Perú'},
+					{opcion:'C', contenido:'Solo está en Junín'},
+				]},
+				{id:4, question: 'Estás por llegar a los', caja: '15 km', proximo:13, instruction: 'Responde una pregunta más',
+				pregunta: '¿Es cierto que con Caja Huancayo se puede realizar operaciones con Plin y Yape?', alternativas:[
+					{opcion:'A', contenido:'Verdadero'},
+					{opcion:'B', contenido:'Falso'},
+				]},
+				{id:5, question: '¡Felicidades! Siguiente meta:', caja: '15 km', proximo:15, instruction: 'Responde la siguiente pregunta',
+				pregunta: '¿Caja Huancayo cuenta con el respaldo de la prestigiosa entidad BID Invest?', alternativas:[
+					{opcion:'A', contenido:'Falso'},
+					{opcion:'B', contenido:'Verdadero'},
+				]},
+				{id:6, question: '¡Vamos! Casi llegamos a los', caja: '20 km', proximo:18, instruction: 'Responde una pregunta más',
+				pregunta: '¿A qué rama del atletismo se dedica Kimberly García?', alternativas:[
+					{opcion:'A', contenido:'Natación'},
+					{opcion:'B', contenido:'Lanzamiento de jabalina'},
+					{opcion:'C', contenido:'Marcha atlética'},
+				]},
+				{id:7, question: '¡En hora buena, casi los', caja: '20 km', proximo:20, instruction: 'Caja Huancayo apoya al deporte nacional auspiciando también al',
+				pregunta: 'Caja Huancayo apoya al deporte nacional auspiciando también al:', alternativas:[
+					{opcion:'A', contenido:'Sport Huancayo y al ADT de Tarma'},
+					{opcion:'B', contenido:'Pedro Gallese, arquero de la selección peruana de futbol.'},
+					{opcion:'C', contenido:'Todas son correctas'},
+				]},
+				{id:8, question: '¡Estás a punto de llegar a los', caja: '35 km', proximo:25, instruction: 'Responde la siguiente pregunta',
+				pregunta: '¿Cómo se conoce a Caja Huancayo?', alternativas:[
+					{opcion:'A', contenido:'La Caja del Perú'},
+					{opcion:'B', contenido:'El banco de todos los peruanos'},
+					{opcion:'C', contenido:'El banco del Ekeko'},
+				]},
+				{id:9, question: 'Últimos esfuerzos para los', caja: '35 km', proximo:30, instruction: 'Ahorrar en Caja Huancayo es totalmente seguro por la siguiente razón:',
+				pregunta: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:', alternativas:[
+					{opcion:'A', contenido:'Es totalemente confiable y ofrece alta rentabilidad'},
+					{opcion:'B', contenido:'Por que pertenece al FSD (Fondo de Seguros y Depósitos)'},
+					{opcion:'C', contenido:'Por que Está supervisado por la SBS'},
+					{opcion:'D', contenido:'Todas son correctas'},
+				]},
+				{id:10, question: 'Desafío final para los', caja: '35 km', proximo:30, instruction: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:',
+				pregunta: 'Caja Huancayo es una empresa 100% peruana que apoya a los peruanos:', alternativas:[
+					{opcion:'A', contenido:'Verdadero'},
+					{opcion:'B', contenido:'Falso'},
+				]},
+			])
+			const bancoRespuestas = ref([])
 
-						fetch('api/punto.php')
-					}
-
-					function irCero(){
-						numPregunta.value = -1
-						paso.value=0
-						saltar.value = 'cero'
-					}
-
-					onMounted(()=>{
-
-						if ($(window).width() >= 576){
-							$('.carrusel	').slick({
-								slidesToShow: 3,
-								slidesToScroll: 3,
-								dots: true
-							});
-						}else{
-							$('.carrusel	').slick({
-								slidesToShow: 1,
-								slidesToScroll: 1,
-								dots: true
-							});
-						}
-
-						ocultarLogo()
-						for(let i =0; i<10; i++)
-							bancoRespuestas.value[i]=''
-					})
-
-					function comenzar(){
-						scrollToTop()
+			function ocultarLogo(){
+				setTimeout(()=>{
+					var bienvenidaDiv = document.getElementById("imgBienvenida");
+					bienvenidaDiv.classList.remove("animate__fadeIn");
+					bienvenidaDiv.classList.add("animate__fadeOut");
+					bienvenidaDiv.addEventListener('animationend', () => {
+						bienvenidaDiv.parentElement.classList.add('oculto', 'd-none')
+						const menu = document.getElementById('menu')
 						const formulario = document.getElementById('formulario')
-						formulario.classList.add('animate__animated', 'animate__fadeOut' )
-						formulario.addEventListener('animationend', ()=>{
-							formulario.classList.add('oculto', 'd-none')
-							const encuesta = document.getElementById('encuesta')
-							encuesta.classList.remove('oculto', 'd-none')
-							encuesta.classList.add('animate__animated','animate__fadeIn')
-						})
-					}
-					
-					function enviarHoja(){
-						switch(true){
-							case (numPregunta.value == -1):
-								if(!postulante.value.nombre || !postulante.value.correo || !postulante.value.celular || !postulante.value.ciudad) Swal.fire({
-									icon: 'warning', text: "Todos los campos son obligatorios" })
-								else if(!postulante.value.acepto) Swal.fire({
-									icon: 'warning', text: "Debe aceptar los términos y condiciones" })
-								else{
-									saltar.value='uno'
-									numPregunta.value=-1
-									paso.value=0
-									cambiarSoloPregunta1()
-								}
-							break;
-							case (numPregunta.value>-1):
-								if(bancoRespuestas.value[numPregunta.value]!=''){
-									saltar.value='uno'
-									cambiarSoloPregunta1()
-								}else{
-									Swal.fire({
-										icon: 'warning', text: "Debe seleccionar una opción" })
-								}
-							break;
-						}
-						scrollToTop()
-					}
+						menu.classList.remove('oculto')
+						menu.classList.add('animate__animated','animate__fadeIn')
+						formulario.classList.remove('oculto')
+						formulario.classList.add('animate__animated','animate__fadeIn')
+					});
+				}, 2000) //cambiar a 2000 segundos
 
-					function irCero(){
-						saltar.value = 'cero'
-						numPregunta.value = -1
-						paso.value = 0
-						const pregunta0 = document.getElementById('pregunta0')
-						const pregunta1 = document.getElementById('pregunta1')
-						pregunta0.classList.remove('d-none', 'oculto')
-						pregunta1.classList.add('d-none', 'oculto')
-					}
-					
-					function irAPregunta(numero){
-						if(numPregunta.value>=numero){
-							saltar.value = numero
+				fetch('api/punto.php')
+			}
+
+			function irCero(){
+				numPregunta.value = -1
+				paso.value=0
+				saltar.value = 'cero'
+			}
+
+			onMounted(()=>{
+
+				if ($(window).width() >= 576){
+					$('.carrusel	').slick({
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						dots: true
+					});
+				}else{
+					$('.carrusel	').slick({
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						dots: true
+					});
+				}
+
+				ocultarLogo()
+				for(let i =0; i<10; i++)
+					bancoRespuestas.value[i]='A'
+			})
+
+			function comenzar(){
+				scrollToTop()
+				const formulario = document.getElementById('formulario')
+				formulario.classList.add('animate__animated', 'animate__fadeOut' )
+				formulario.addEventListener('animationend', ()=>{
+					formulario.classList.add('oculto', 'd-none')
+					const encuesta = document.getElementById('encuesta')
+					encuesta.classList.remove('oculto', 'd-none')
+					encuesta.classList.add('animate__animated','animate__fadeIn')
+				})
+			}
+			
+			function enviarHoja(){
+				switch(true){
+					case (numPregunta.value == -1):
+						if(!postulante.value.nombre || !postulante.value.correo || !postulante.value.celular || !postulante.value.ciudad) Swal.fire({
+							icon: 'warning', text: "Todos los campos son obligatorios" })
+						else if(!postulante.value.acepto) Swal.fire({
+							icon: 'warning', text: "Debe aceptar los términos y condiciones" })
+						else{
+							saltar.value='uno'
+							numPregunta.value=-1
+							paso.value=0
 							cambiarSoloPregunta1()
 						}
-					}
-
-					function atras(){
-						if(numPregunta.value >0) numPregunta.value--
-						else irCero()
-					}
-
-					function cambiarSoloPregunta1(){
-						const preguntas = document.getElementById('pregunta1')
-						preguntas.classList.remove('d-none', 'oculto')
-						if( saltar.value == 'cero') return null
-						else if( saltar.value == 'uno') numPregunta.value ++
-						else numPregunta.value = saltar.value
-						paso.value = banco.value[numPregunta.value].proximo
-					}
-
-					function addRespuesta(rpta){
-						bancoRespuestas.value[numPregunta.value]=rpta
-					}
-
-					function evaluarOpcion(opcion){
-						let seleccion = false
-						if(bancoRespuestas.value[numPregunta.value] == opcion)
-								seleccion=true
-						return seleccion ? 'activo':''
-					}
-
-					function scrollToTop () {
-						window.scrollTo({
-							top: 0,
-							behavior: 'smooth'
-						});
-					}
-
-					function enviarCalificaciones(){
-						const overload = document.getElementById('overload')
-						overload.classList.remove('d-none')
-						const datos = new FormData()
-						datos.append('cliente', JSON.stringify(postulante.value))
-						datos.append('respuestas', JSON.stringify(bancoRespuestas.value))
-						fetch('api/resolver.php',{
-							method:'POST', body:datos
-						})
-						.then(serv => serv.json() )
-						.then(resp =>{
-							servidor.value = resp;
-							overload.classList.add('d-none')
-							finalizado.value = true
-
-							//console.log(resp)
-						})
-
-					}
-
-					return {
-						comenzar, postulante, paso, enviarHoja, banco, numPregunta, saltar, irAPregunta, irCero, atras, addRespuesta, evaluarOpcion, bancoRespuestas, enviarCalificaciones, finalizado, servidor
-					}
+					break;
+					case (numPregunta.value>-1):
+						if(bancoRespuestas.value[numPregunta.value]!=''){
+							saltar.value='uno'
+							cambiarSoloPregunta1()
+						}else{
+							Swal.fire({
+								icon: 'warning', text: "Debe seleccionar una opción" })
+						}
+					break;
 				}
-			}).mount('#app')
-		</script>
-	</body>
+				scrollToTop()
+			}
+
+			function irCero(){
+				saltar.value = 'cero'
+				numPregunta.value = -1
+				paso.value = 0
+				const pregunta0 = document.getElementById('pregunta0')
+				const pregunta1 = document.getElementById('pregunta1')
+				pregunta0.classList.remove('d-none', 'oculto')
+				pregunta1.classList.add('d-none', 'oculto')
+			}
+			
+			function irAPregunta(numero){
+				if(numPregunta.value>=numero){
+					saltar.value = numero
+					cambiarSoloPregunta1()
+				}
+			}
+
+			function atras(){
+				if(numPregunta.value >0) numPregunta.value--
+				else irCero()
+			}
+
+			function cambiarSoloPregunta1(){
+				const preguntas = document.getElementById('pregunta1')
+				preguntas.classList.remove('d-none', 'oculto')
+				if( saltar.value == 'cero') return null
+				else if( saltar.value == 'uno') numPregunta.value ++
+				else numPregunta.value = saltar.value
+				paso.value = banco.value[numPregunta.value].proximo
+			}
+
+			function addRespuesta(rpta){
+				bancoRespuestas.value[numPregunta.value]=rpta
+			}
+
+			function evaluarOpcion(opcion){
+				let seleccion = false
+				if(bancoRespuestas.value[numPregunta.value] == opcion)
+						seleccion=true
+				return seleccion ? 'activo':''
+			}
+
+			function scrollToTop () {
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				});
+			}
+
+			function mostrarZonaFoto(){
+				verFoto.value=true
+				const sectionFoto = document.getElementById('sectionFoto')
+				const final = document.getElementById('final')
+				final.classList.add('d-none')
+				sectionFoto.classList.remove('d-none')
+			}
+			function enviarCalificaciones(){
+				const overload = document.getElementById('overload')
+				overload.classList.remove('d-none')
+				const datos = new FormData()
+				datos.append('cliente', JSON.stringify(postulante.value))
+				datos.append('respuestas', JSON.stringify(bancoRespuestas.value))
+				fetch('api/resolver.php',{
+					method:'POST', body:datos
+				})
+				.then(serv => serv.json() )
+				.then(resp =>{
+					servidor.value = resp;
+					overload.classList.add('d-none')
+					finalizado.value = true
+					const sectionFoto = document.getElementById('sectionFoto')
+					sectionFoto.classList.remove('d-none')
+					//console.log(resp)
+				})
+			}
+
+			function tomarFoto(){
+				const overload = document.getElementById('overload')
+				overload.classList.remove('d-none')
+				queSube.value = 'camera'
+				let input = document.createElement('input');
+				input.type = 'file';
+				input.accept = 'image/*';
+				input.capture = 'camera';  // Forzar el uso de la cámara
+		
+				// Agregar un listener para cuando se seleccione un archivo
+				input.addEventListener('change', function(event) {
+						let file = event.target.files[0];
+						if (file) {
+							let reader = new FileReader();
+							reader.onload = function(e) {
+								// Obtener el elemento img y establecer su src al resultado de la lectura
+								let img = document.getElementById('preview');
+								img.src = e.target.result;
+								img.style.display = 'block';  // Mostrar la imagen
+							};
+							reader.readAsDataURL(file);
+						}
+				});
+				// Simular un clic en el input para abrir la cámara
+				input.click();
+			}
+			function fotoDesdePC(){
+				let input = document.getElementById('txtFoto');
+
+				const canvas = document.getElementById('canvas');
+				const ctx = canvas.getContext('2d');
+				const file = event.target.files[0];
+				const reader = new FileReader();
+		
+				reader.onload = function(e) {
+						const img = new Image();
+						img.onload = function() {
+								canvas.width = img.width;
+								canvas.height = img.height;
+		
+								// Dibujar la imagen cargada en el canvas
+								ctx.drawImage(img, 0, 0, img.width, img.height);
+		
+								// Cargar y dibujar el marco sobre la imagen
+								const frame = new Image();
+								frame.src = 'assets/marco.png';
+								frame.onload = function() {
+										ctx.drawImage(frame, 0, 0, img.width, img.height);
+								};
+						};
+						img.src = e.target.result;
+						verFinal.value=true
+				};
+		
+				reader.readAsDataURL(file);
+			}
+			function subirFoto(){
+				let input = document.getElementById('txtFoto');
+				input.click();
+			}
+
+			function subirDesdeCamara(){
+				let input = document.getElementById('txtCamara');
+				input.click();
+			}
+
+			function drawImages(image1){
+				//const txtFoto = document.getElementById('txtFoto')
+				//console.log(txtFoto)
+				//const image1 = input.files[0]
+				console.log(image1)
+				const marco = new Image()
+				marco.src = "assets/marco.png"
+				const canvas = document.getElementById('canvas');
+				const context = canvas.getContext('2d');
+				canvas.width = Math.max(image1.width, marco.width);
+				canvas.height = Math.max(image1.height, marco.height);
+		
+				context.drawImage(image1, 0, 0);
+				context.drawImage(marco, 0, 0);
+		
+				canvas.style.display = 'block';
+				document.getElementById('downloadButton').style.display = 'block';
+			}
+
+			function fotoDesdeCamara(){
+				const input = document.getElementById('txtCamara')
+				const canvas = document.getElementById('canvas');
+				const ctx = canvas.getContext('2d');
+				const file = input.files[0];
+				const reader = new FileReader();
+
+				reader.onload = function(e) {
+						const img = new Image();
+						img.onload = function() {
+								canvas.width = img.width;
+								canvas.height = img.height;
+
+								// Dibujar la imagen cargada en el canvas
+								ctx.drawImage(img, 0, 0, img.width, img.height);
+
+								// Cargar y dibujar el marco sobre la imagen
+								const frame = new Image();
+								frame.src = 'assets/marco.png';
+								const inicio = img.width;
+								const final = inicio
+								frame.onload = function() {
+										ctx.drawImage(frame, 0, final-500, inicio, final);
+								};
+						};
+						img.src = e.target.result;
+						verFinal.value=true
+				};
+
+				reader.readAsDataURL(file);
+			}
+
+			function descargarFoto(){
+				const canvas = document.getElementById('canvas');
+				const link = document.createElement('a');
+				link.href = canvas.toDataURL('image/jpeg');
+				link.download = 'Campeones.jpg';
+				link.click();
+			}
+		
+
+			return {
+				comenzar, postulante, paso, enviarHoja, banco, numPregunta, saltar, irAPregunta, irCero, atras, addRespuesta, evaluarOpcion, bancoRespuestas, enviarCalificaciones, finalizado, servidor, verFoto, tomarFoto, subirFoto, fotoDesdePC, fotoDesdeCamara, subirDesdeCamara, verFinal, descargarFoto
+			}
+		}
+	}).mount('#app')
+</script>
+</body>
 
 </html>

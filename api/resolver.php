@@ -1,10 +1,9 @@
 <?php
-error_reporting(E_ALL); ini_set("display_errors", 1);
-sleep(2);
-
+//error_reporting(E_ALL); ini_set("display_errors", 1);
+sleep(1);
 require 'conectInfocat.php';
 $buenas = 0;
-$fijas = [];
+$fijas = [  ];
 
 $cliente = json_decode($_POST['cliente'], true);
 //insertar al postulante
