@@ -30,9 +30,9 @@
 							<p class="text-center d-none mb-0 fs-3">Bienvenido a</p>
 							<p class="text-center d-none fs-2 mb-0 fw-bold">“Campeones día a día”</p>
 							<div class="w-75 mx-auto">
-								<img src="assets/campeones.jpg" class="img-fluid ">
+								<img src="assets/campeones.png" class="img-fluid ">
 							</div>
-							<div class="d-flex justify-content-center"><span class="text-center cajaRoja fs-1 fw-bold ">Alcanza la meta</span></div>
+							<div class="d-flex justify-content-center"><span class="text-center cajaRoja fs-1 fw-bold ">Alcanza la meta y apoya a Kimberly García</span></div>
 						</div>
 						<div class="w-75 mx-auto my-3">
 							<div id="personajes">
@@ -41,7 +41,7 @@
 										<div class="card m-1 ">
 											<div class="card-body">
 												<p class=" nombrePersonaje">Jesús Núñez</p>
-												<img src="assets/campeon3.png" class="img-fluid" alt="Persona 1">
+												<img src="assets/campeon3.jpg" class="img-fluid" alt="Persona 1">
 												<p class="mb-0 rango fw-bold">Primer Lugar</p>
 												<p class="medalla">Medalla de oro</p>
 											</div>
@@ -73,7 +73,7 @@
 									<div class="position-relative">
 										<div class="card m-1 ">
 											<div class="card-body ">
-												<p class=" nombrePersonaje">Karina Llanos </p>
+												<p class=" nombrePersonaje">Andrés Llanos </p>
 												<img src="assets/campeon4.jpg" class="img-fluid" alt="Persona 1">
 												<p class="mb-0 rango fw-bold">Primer Lugar</p>
 												<p class="medalla">Medalla de oro</p>
@@ -187,7 +187,7 @@
 								<p class="mb-1"><small>Tu meta alcanzada es de: </small></p>
 								<div ><span class="fs-2 cajaRoja fw-bold">{{servidor.puntaje}} km.</span></div>
 								<div class="espaciado" style="margin: 1rem;" ></div>
-								<p class="fw-bold text-center"><small>Ahora participas en el sorteo de un iPhone 15 Pro Max y una Laptop HP. Haz clic en el botón de continuar para confirmar tu participación.</small></p>
+								<p class="fw-bold text-center"><small>Haz clic en el botón de continuar para confirmar tu participación.</small></p>
 								<p class="fs-5	 text-center">Tu código de participación es: <span class="fw-bold">#{{servidor.idCliente}}</span></p>
 							</div>
 							<div class="d-grid">
@@ -196,7 +196,7 @@
 						</div>
 					</section>
 
-					<section class="container w-50 mb-5 d-flex flex-column d-none" id="sectionFoto" v-show="reclamaMedalla" >
+					<section class="container w-50 mb-5 d-flex flex-column d-none" id="sectionFoto" v-show="reclamaMedalla">
 						<img class="mx-auto" src="assets/solar.png" style="width:100px">
 						<div>
 							<p class="fs-5 mb-0 text-center">Reclama tu medalla</p>
@@ -251,9 +251,7 @@
 					<div class="w-100 px-5 py-4" id="pie">
 						<div class="row d-flex flex-md-row flex-column-reverse">
 							<div class="col col-md-8 d-flex flex-column flex-md-row ">
-								<div class="mx-5 fw-bold"><p>POLITICA DE PRIVACIDAD</p></div>
-								<div class="mx-5 fw-bold"><p>CONDICIONES DE USO</p></div>
-								<div class="mx-5 fw-bold"><p>GESTIONAR PREFERENCIAS</p></div>
+								<div class="mx-5 fw-bold"><p><a class="text-decoration-none text-light" href="https://www.cajahuancayo.com.pe/PCM_frmPoldePri.aspx?cCodigo=93" target="_blank">POLITICA DE PRIVACIDAD</a></p></div>
 							</div>
 							<div class="col col-md-4 d-flex flex-row-reverse justify-content-center mb-2">
 								<div class="icono m-2"> <a href="https://www.tiktok.com/@cajahuancayo" target="_blank"><img src="assets/tiktok.png" width="30"></a> </div>
@@ -294,8 +292,8 @@
 					const saltar = ref('uno')
 					const finalizado = ref(false)
 					const servidor = ref(null)
-					const verFoto = ref(false)
 					const queSube = ref(null)
+					const verFoto = ref(true)
 					const reclamaMedalla = ref(false)
 					const verFinal = ref(false)
 
@@ -403,7 +401,7 @@
 
 						ocultarLogo()
 						for(let i =0; i<10; i++)
-							bancoRespuestas.value[i]=''
+							bancoRespuestas.value[i]='' //respuesta prefijada
 					})
 
 					function comenzar(){
@@ -560,17 +558,28 @@
 						reader.onload = function(e) {
 								const img = new Image();
 								img.onload = function() {
-										canvas.width = img.width;
-										canvas.height = img.height;
+									const minSize = Math.min(img.width, img.height);
+									const startX = (img.width - minSize) / 2;
+									const startY = (img.height - minSize) / 2;
+
+									canvas.width = minSize;
+									canvas.height = minSize;
+									console.log(canvas.height)
+										/*canvas.width = img.width;
+										canvas.height = img.height;*/
 				
 										// Dibujar la imagen cargada en el canvas
-										ctx.drawImage(img, 0, 0, img.width, img.height);
+										//ctx.drawImage(img, 0, 0, img.width, img.height);
+									ctx.drawImage(img, startX, startY, minSize, minSize, 0, 0, minSize, minSize);
 				
 										// Cargar y dibujar el marco sobre la imagen
 										const frame = new Image();
-										frame.src = 'assets/marco.png';
+										frame.src = 'assets/marco2.png';
+									const inicio = minSize;
+									const ancho = inicio*0.35
+									const final = inicio
 										frame.onload = function() {
-												ctx.drawImage(frame, 0, 0, img.width, img.height);
+											ctx.drawImage(frame, 0, minSize- ancho ,minSize,ancho);
 										};
 								};
 								img.src = e.target.result;
@@ -587,25 +596,6 @@
 					function subirDesdeCamara(){
 						let input = document.getElementById('txtCamara');
 						input.click();
-					}
-
-					function drawImages(image1){
-						//const txtFoto = document.getElementById('txtFoto')
-						//console.log(txtFoto)
-						//const image1 = input.files[0]
-						console.log(image1)
-						const marco = new Image()
-						marco.src = "assets/marco.png"
-						const canvas = document.getElementById('canvas');
-						const context = canvas.getContext('2d');
-						canvas.width = Math.max(image1.width, marco.width);
-						canvas.height = Math.max(image1.height, marco.height);
-				
-						context.drawImage(image1, 0, 0);
-						context.drawImage(marco, 0, 0);
-				
-						canvas.style.display = 'block';
-						document.getElementById('downloadButton').style.display = 'block';
 					}
 
 					function fotoDesdeCamara(){
@@ -631,11 +621,13 @@
 
 									// Cargar y dibujar el marco sobre la imagen
 									const frame = new Image();
-									frame.src = 'assets/marco.png';
-									const inicio = img.width;
+									frame.src = 'assets/marco2.png';
+									const inicio = minSize;
+									const ancho = inicio*0.35
 									const final = inicio
 									frame.onload = function() {
-											ctx.drawImage(frame, 0, final-500, inicio, final);
+										//ctx.drawImage(frame, 0, final, inicio, final);
+										ctx.drawImage(frame, 0, minSize- ancho ,minSize,ancho);
 									};
 								};
 								img.src = e.target.result;
